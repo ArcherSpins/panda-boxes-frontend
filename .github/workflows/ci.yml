@@ -1,38 +1,31 @@
-name: Panda boxes
+name: Deploy to GitHub Pages
 
-# Trigger the workflow on every push to the 'main' branch
 on:
   push:
     branches:
-      - master
-  # Optionally, also run on pull request events to the 'main' branch
-  pull_request:
-    branches:
-      - master
+      - main  # Выполнять деплой только при пуше в ветку main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Set up Node.js environment
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18  # Specify the Node.js version
+          node-version: 18
 
-      # Install dependencies
       - name: Install dependencies
         run: npm install
 
-      # Build the project
       - name: Build the project
         run: npm run build
 
-      # Optionally: Run tests (if applicable)
-      - name: Run tests
-        run: npm run test --if-present
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
