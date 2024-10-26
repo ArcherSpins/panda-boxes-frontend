@@ -1,8 +1,9 @@
 interface ButtonProps {
   color?: "black" | "white" | "gray";
+  label?: string;
 }
 
-export const Button = ({ color = "black" }: ButtonProps) => {
+export const Button = ({ color = "black", label = "Button" }: ButtonProps) => {
   const colors = {
     black: "bg-black hover:bg-gray-300 text-white",
     white: "bg-white text-black",
@@ -11,7 +12,7 @@ export const Button = ({ color = "black" }: ButtonProps) => {
 
   return (
     <button className={`rounded-xl px-5 py-3 font-bold ${colors[color]}`}>
-      Shop Now
+      {label}
     </button>
   );
 };
